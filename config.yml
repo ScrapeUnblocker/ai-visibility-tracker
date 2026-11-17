@@ -1,0 +1,56 @@
+# ai-visibility-tracker: the one file you edit. Secrets (API key, webhooks, SMTP, the
+# Google service account) go in repository secrets or .env, never here.
+#
+# The shipped values are a public example (an issue tracker and its competitors) so the
+# template shows real answers right away. Put in your own brand, competitors and prompts.
+
+# Your brand: the names an answer may use, and the domains that count as your site.
+brand:
+  name: Linear
+  aliases: [Linear.app]
+  domains: [linear.app]
+  # "Linear" yes, "a linear workflow" no. Leave false for names that aren't everyday words.
+  match_case: true
+
+# Brands to rank against. Rank = the order the tracked brands are first named in an answer.
+# A competitor the prompt itself names ("Jira alternatives") is left out of that prompt.
+competitors:
+  - name: Jira
+    aliases: [Atlassian Jira]
+    domains: [atlassian.com]
+  - name: GitHub Projects
+  - name: ClickUp
+    domains: [clickup.com]
+  - name: Asana
+    domains: [asana.com]
+  - name: Shortcut
+    domains: [shortcut.com]
+    match_case: true
+
+# What your buyers ask, as they would type it. Each prompt is asked once a day on each engine.
+prompts:
+  - best project management tool for a small software team
+  - what are the best Jira alternatives for startups
+  - which issue tracker should a 10-person engineering team use
+  # Another country:  - {prompt: "bestes Projektmanagement-Tool für Startups", country: DE}
+
+engines: [chatgpt, gemini, google_ai_mode]
+country: US # ask from this country; per prompt with {prompt: ..., country: GB}
+language: en # the answer language for Google AI Mode (ChatGPT and Gemini follow the prompt)
+
+checks:
+  recheck: true # confirm a change with a second answer before alerting (1 more call per change)
+  history_days: 120 # answers kept in the state file
+
+alerts:
+  to: [slack, discord, webhook] # when a change is confirmed; [] turns alerts off
+
+digest:
+  day: monday # the weekly digest goes out on the first run on or after this day; off = none
+  to: [slack, discord, email, webhook]
+
+sheet:
+  enabled: true # one row per answer, needs GOOGLE_SHEET_ID + GOOGLE_SERVICE_ACCOUNT_JSON
+  tab: Answers
+
+state: state/visibility.json

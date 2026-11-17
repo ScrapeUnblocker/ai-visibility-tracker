@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-visibility-tracker"
+version = "0.1.0"
+description = "Is your brand named when people ask ChatGPT, Gemini and Google AI Mode your prompts? Daily checks logged to Google Sheets, Slack, Discord, email or webhook alerts when your visibility changes (confirmed by a second answer), and a weekly share-of-voice digest, on a GitHub Actions schedule."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "ScrapeUnblocker" }]
+keywords = [
+    "ai-visibility",
+    "ai-search",
+    "generative-engine-optimization",
+    "geo",
+    "llm-seo",
+    "brand-monitoring",
+    "share-of-voice",
+    "chatgpt",
+    "gemini",
+    "google-ai-mode",
+    "google-sheets",
+    "slack",
+    "github-actions",
+    "scrapeunblocker",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Communications :: Chat",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+    "Topic :: Office/Business",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "scrapeunblocker>=0.19,<1",
+    "httpx>=0.27",
+    "PyYAML>=6.0",
+    "google-auth>=2.30",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+    "pre-commit>=3.5",
+]
+
+[project.urls]
+Homepage = "https://scrapeunblocker.com/?utm_source=github&utm_medium=integration&utm_campaign=example-repos"
+Documentation = "https://docs.scrapeunblocker.com/?utm_source=github&utm_medium=integration&utm_campaign=example-repos"
+Repository = "https://github.com/ScrapeUnblocker/ai-visibility-tracker"
+Issues = "https://github.com/ScrapeUnblocker/ai-visibility-tracker/issues"
+
+[project.scripts]
+ai-visibility-tracker = "ai_visibility_tracker.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["state"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
